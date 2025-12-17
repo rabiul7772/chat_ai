@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
     }
 
     const defaultModel =
-      process.env.OPENROUTER_DEFAULT_MODEL || 'openai/gpt-3.5-turbo';
+      process.env.OPENROUTER_DEFAULT_MODEL || 'openrouter/auto';
     const selectedModel = model || defaultModel;
 
     // Format messages for OpenRouter API

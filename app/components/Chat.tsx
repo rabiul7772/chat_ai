@@ -5,6 +5,7 @@ import type { Message } from '@/types/chat';
 import MessageComponent from './Message';
 import ChatInput from './ChatInput';
 import Logo from './Logo';
+import { MODELS } from './ModelSelector';
 
 export default function Chat() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -13,6 +14,16 @@ export default function Chat() {
   const [streamingMessageId, setStreamingMessageId] = useState<string | null>(
     null
   );
+  // Load selected model from localStorage or use default
+  const [selectedModel, setSelectedModel] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('selectedModel');
+      if (saved && MODELS.some(m => m.id === saved)) {
+        return saved;
+      }
+    }
+    return MODELS[0].id; // Default to Auto (Best Free)
+  });
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -22,6 +33,13 @@ export default function Chat() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Persist model selection to localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('selectedModel', selectedModel);
+    }
+  }, [selectedModel]);
 
   const handleSendMessage = async (content: string) => {
     const userMessage: Message = {
@@ -59,7 +77,7 @@ export default function Chat() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ messages: formattedMessages })
+        body: JSON.stringify({ messages: formattedMessages, model: selectedModel })
       });
 
       if (!response.ok) {
@@ -154,7 +172,7 @@ export default function Chat() {
     <div className="flex flex-col h-screen bg-white dark:bg-gray-950">
       {/* Header */}
       <header className="border-b border-gray-300 dark:border-gray-700 px-6 py-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Logo className="w-8 h-8 flex-shrink-0" />
             <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
@@ -238,7 +256,12 @@ export default function Chat() {
       )}
 
       {/* Input Area */}
-      <ChatInput onSendMessage={handleSendMessage} disabled={isLoading} />
+      <ChatInput
+        onSendMessage={handleSendMessage}
+        disabled={isLoading}
+        selectedModel={selectedModel}
+        onModelChange={setSelectedModel}
+      />
     </div>
   );
 }
