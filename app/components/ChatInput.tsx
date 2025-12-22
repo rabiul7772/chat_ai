@@ -49,7 +49,7 @@ export default function ChatInput({
       onSubmit={handleSubmit}
       className="border-t border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950"
     >
-      <div className="max-w-4xl mx-auto px-3 sm:px-4 py-3 sm:py-4">
+      <div className="max-w-4xl mx-auto px-3 sm:px-4 py-3 sm:py-4 bg-white dark:bg-gray-950">
         {/* Model Selector */}
         {selectedModel && onModelChange && (
           <div className="mb-2 flex items-center gap-2">
@@ -74,17 +74,17 @@ export default function ChatInput({
             placeholder="Type your message..."
             disabled={disabled}
             rows={1}
-            className="flex-1 min-h-[44px] sm:min-h-[44] max-h-[200] resize-none rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all leading-relaxed scrollbar-hide-desktop overflow-y-auto"
+            className="flex-1 min-h-[44px] sm:min-h-[44] max-h-[160px] resize-none rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all leading-relaxed scrollbar-hide-desktop overflow-y-auto"
           />
           <button
             type="submit"
             disabled={!input.trim() || disabled}
-            className="shrink-0 h-[44px] sm:h-[44] min-h-[44px] sm:min-h-[44] rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-medium px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm hover:shadow-md disabled:shadow-none flex items-center justify-center"
+            className="shrink-0 h-[44px] sm:h-[44] min-h-[44px] sm:min-h-[44] rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-medium px-3 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm hover:shadow-md disabled:shadow-none flex items-center justify-center"
           >
             <span>Send</span>
           </button>
         </div>
-        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 px-1 hidden sm:block">
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 px-1 sm:mt-2 sm:px-1">
           Press Enter to send, Shift+Enter for new line
         </p>
       </div>

@@ -177,9 +177,9 @@ export default function Chat() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-white dark:bg-gray-950">
+    <div className="flex flex-col min-h-screen bg-white dark:bg-gray-950">
       {/* Header */}
-      <header className="border-b border-gray-300 dark:border-gray-700 px-6 py-4">
+      <header className="border-b border-gray-300 dark:border-gray-700 px-6 py-4 sticky top-0 bg-white dark:bg-gray-950 z-10">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Logo className="w-8 h-8 flex-shrink-0" />
@@ -199,7 +199,7 @@ export default function Chat() {
       </header>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto px-6 py-4">
+      <div className="flex-1 overflow-y-auto px-6 py-4 pb-20">
         {messages.length === 0 ? (
           <div className="flex items-center justify-center h-full">
             <div className="text-center">
@@ -264,12 +264,14 @@ export default function Chat() {
       )}
 
       {/* Input Area */}
-      <ChatInput
-        onSendMessage={handleSendMessage}
-        disabled={isLoading}
-        selectedModel={selectedModel}
-        onModelChange={setSelectedModel}
-      />
+      <div className="border-t border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 sticky bottom-0 z-20">
+        <ChatInput
+          onSendMessage={handleSendMessage}
+          disabled={isLoading}
+          selectedModel={selectedModel}
+          onModelChange={setSelectedModel}
+        />
+      </div>
     </div>
   );
 }
