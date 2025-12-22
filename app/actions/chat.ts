@@ -8,6 +8,7 @@ export async function sendMessage(
 ): Promise<{ message: Message; error?: string }> {
   try {
     const apiKey = process.env.OPENROUTER_API_KEY;
+    console.log(apiKey);
     if (!apiKey) {
       return {
         message: {

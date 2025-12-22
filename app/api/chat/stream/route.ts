@@ -17,6 +17,7 @@ export async function POST(request: NextRequest) {
     }
 
     const apiKey = process.env.OPENROUTER_API_KEY;
+
     if (!apiKey) {
       console.error('OPENROUTER_API_KEY is not set');
       return new Response(
@@ -151,13 +152,9 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Chat streaming API error:', error);
-    return new Response(
-      JSON.stringify({ error: 'Internal server error' }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      }
-    );
+    return new Response(JSON.stringify({ error: 'Internal server error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 }
-

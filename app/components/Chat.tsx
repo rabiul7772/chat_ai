@@ -16,14 +16,19 @@ export default function Chat() {
   );
   // Load selected model from localStorage or use default
   const [selectedModel, setSelectedModel] = useState<string>(() => {
+    // Always use the default on initial render to avoid hydration mismatch
+    return MODELS[0].id; // Default to Auto (Best Free)
+  });
+
+  // Sync with localStorage after component mounts (client-side only)
+  useEffect(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('selectedModel');
       if (saved && MODELS.some(m => m.id === saved)) {
-        return saved;
+        setSelectedModel(saved);
       }
     }
-    return MODELS[0].id; // Default to Auto (Best Free)
-  });
+  }, []); // Run only once on mount
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -77,7 +82,10 @@ export default function Chat() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ messages: formattedMessages, model: selectedModel })
+        body: JSON.stringify({
+          messages: formattedMessages,
+          model: selectedModel
+        })
       });
 
       if (!response.ok) {
